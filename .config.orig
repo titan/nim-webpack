@@ -1,0 +1,2 @@
+NAME=webpack
+BUILDDIR=/dev/shm/$(NAME-LINK)
