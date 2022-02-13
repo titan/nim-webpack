@@ -5,12 +5,13 @@ ESCAPED-BUILDDIR = $(shell echo '$(BUILDDIR)' | sed 's%/%\\/%g')
 TARGET=$(BUILDDIR)/$(NAME-LINK)
 BUILDSCRIPTS=$(NAME).nimble nim.cfg
 DSTSCRIPTS=$(BUILDSCRIPTS:%=$(BUILDDIR)/%)
-SRCS=$(wildcard *.nim)
+SRCS=$(wildcard src/*.nim)
 DSTSRCS=$(SRCS:%=$(BUILDDIR)/%)
 
 all: $(TARGET)
 
 $(TARGET): $(DSTSCRIPTS) $(DSTSRCS)
+	echo $(DSTSRCS)
 	cd $(BUILDDIR); nimble build; cd -
 
 $(DSTSCRIPTS): $(BUILDDIR)/%: % | prebuild
@@ -24,7 +25,7 @@ $(DSTSRCS): $(BUILDDIR)/%: % .config | prebuild
 
 prebuild:
 ifeq "$(wildcard $(BUILDDIR))" ""
-	@mkdir -p $(BUILDDIR)/$(NAME)
+	@mkdir -p $(BUILDDIR)/src
 endif
 
 clean:
