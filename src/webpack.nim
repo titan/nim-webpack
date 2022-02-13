@@ -4,7 +4,8 @@ import docopt
 import zippy
 
 proc normalize(s: string): string =
-  return s.replace("/", "_slash_")
+  return "router_" &
+          s.replace("/", "_slash_")
           .replace(".", "_dot_")
           .replace("-", "_link_")
           .replace(" ", "_space_")
